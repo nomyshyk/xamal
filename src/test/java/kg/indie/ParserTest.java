@@ -14,6 +14,6 @@ public class ParserTest {
 
     @Test
     public void parserTest() {
-        parser.parse("(human(head(eyes))(body)(legs))");;
+        parser.parse("(human(head(eyes))(body)(legs))", 0);
     }
 }

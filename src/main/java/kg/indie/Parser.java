@@ -1,11 +1,14 @@
 package kg.indie;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class Parser {
 
-    public String parse(String xamalText) {
+    List<String> strings = new ArrayList<>();
+
+    public String parse(String xamalText, int level) {
         if(xamalText.isBlank() || xamalText.isEmpty()) {
             return xamalText;
         }
@@ -13,17 +16,22 @@ public class Parser {
         StringBuilder word = new StringBuilder();
         for (int i = 0; i<xamalText.length(); i++) {
             if(xamalText.charAt(i) == '(') {
-                xamalText = parse(xamalText.substring(i+1));
+                System.out.println("My parent is " + word);
+                xamalText = parse(xamalText.substring(i+1), ++level);
             }
             else if(xamalText.charAt(i) == ')') {
                 //xamalText = parse(xamalText.substring(0, i));
-                xamalText = parse(xamalText.substring(i+1));
+                xamalText = parse(xamalText.substring(i+1), --level);
             }
             if (i < xamalText.length()) {
                 word.append(xamalText.charAt(i));
             }
-            System.out.printf("word = %s\n", word);
+            if (xamalText.length() == 0 && !word.isEmpty()) {
+                strings.add(word.toString());
+            }
+            System.out.printf("word = %s level=%s\n", word, level);
         }
+        System.out.println(strings);
         return xamalText;
     }
 
