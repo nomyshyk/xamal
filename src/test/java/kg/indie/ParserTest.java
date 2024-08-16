@@ -44,4 +44,10 @@ public class ParserTest {
     public void nextStringXMLTest(String input, String expected) {
         assertEquals(parser.getNextString(input, List.of("<tag>","</tag>")), expected);
     }
+
+    @Test
+    public void populateNodeTreeTest() {
+        NodeTest<String> nodeTest = parser.populateNodeTree("21", new NodeTest<String>());
+        System.out.println(nodeTest);
+    }
 }

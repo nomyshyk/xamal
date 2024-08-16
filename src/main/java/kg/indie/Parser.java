@@ -14,7 +14,7 @@ public class Parser {
         }
         //System.out.printf("%s\n", xamalText);
         StringBuilder word = new StringBuilder();
-        for (int i = 0; i<xamalText.length(); i++) {
+        for (int i = 0; i < xamalText.length(); i++) {
             if(xamalText.charAt(i) == '(') {
                 System.out.println("My parent is " + word);
                 xamalText = parse(xamalText.substring(i+1), ++level);
@@ -35,6 +35,24 @@ public class Parser {
         return xamalText;
     }
 
+    public NodeTest<String> populateNodeTree(String s, NodeTest<String> nodeTest) {
+        if(s.isBlank() || s.isEmpty()) {
+            return nodeTest;
+        }
+
+        String value = s.substring(0, 1);
+        s = s.substring(1);
+
+        nodeTest.setData(value);
+        nodeTest.setChildren(new ArrayList<>());
+        for (int i = 1; i <= Integer.parseInt(value); i++) {
+            NodeTest<String> child = new NodeTest<>();
+            nodeTest.getChildren().add(child);
+            populateNodeTree(s, child);
+        }
+
+        return nodeTest;
+    }
     public String getNextString(String text, List<String> boundStrings) {
         StringBuilder sb = new StringBuilder();
         outer:
@@ -73,6 +91,25 @@ class NodeTest<T> {
     private NodeTest<T> parent;
     private T data;
     private List<NodeTest<T>> children;
+
+
+    @Override
+    public String toString() {
+        return "NodeTest{" +
+                "parent=" + (parent == null ? null : parent.data) +
+                ", data=" + data +
+                ", children=" + children +
+                '}';
+    }
+
+    public NodeTest() {
+    }
+
+    public NodeTest(NodeTest<T> parent, T data, List<NodeTest<T>> children) {
+        this.parent = parent;
+        this.data = data;
+        this.children = children;
+    }
 
     public NodeTest<T> getParent() {
         return parent;
