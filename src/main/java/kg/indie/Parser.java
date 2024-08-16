@@ -2,6 +2,7 @@ package kg.indie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 public class Parser {
@@ -42,6 +43,10 @@ public class Parser {
 
         String value = s.substring(0, 1);
         s = s.substring(1);
+
+        //NodeTest nodeTest1 = nodeTest;
+
+        //nodeTest.setParent(new NodeTest<>(nodeTest, null, null));
 
         nodeTest.setData(value);
         nodeTest.setChildren(new ArrayList<>());
@@ -132,6 +137,7 @@ class NodeTest<T> {
     }
 
     public void setChildren(List<NodeTest<T>> children) {
+        this.parent = this;
         this.children = children;
     }
 }
