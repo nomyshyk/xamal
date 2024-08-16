@@ -35,6 +35,23 @@ public class Parser {
         return xamalText;
     }
 
+    public String getNextString(String text, List<String> boundStrings) {
+        StringBuilder sb = new StringBuilder();
+        outer:
+        for (int i = 0; i < text.length(); i++) {
+            for (String boundString : boundStrings) {
+                if (i + boundString.length() > text.length()) {
+                    break;
+                }
+                if (boundString.equals(text.substring(i, i + boundString.length()))) {
+                    break outer;
+                }
+            }
+            sb.append(text.charAt(i));
+        }
+        return sb.toString();
+    }
+
 //    public String parseStack(String xamalText) {
 //        Stack<String> val = new Stack<>();
 //        NodeTest<String> nodeTree = new NodeTest<>();
