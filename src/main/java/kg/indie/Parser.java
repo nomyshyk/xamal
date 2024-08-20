@@ -2,8 +2,6 @@ package kg.indie;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
 
 public class Parser {
 
@@ -47,11 +45,13 @@ public class Parser {
         //NodeTest nodeTest1 = nodeTest;
 
         //nodeTest.setParent(new NodeTest<>(nodeTest, null, null));
+        //NodeTest<String> nodeTest = new NodeTest<>()
 
         nodeTest.setData(value);
         nodeTest.setChildren(new ArrayList<>());
         for (int i = 1; i <= Integer.parseInt(value); i++) {
             NodeTest<String> child = new NodeTest<>();
+            child.setParent(nodeTest);
             nodeTest.getChildren().add(child);
             populateNodeTree(s, child);
         }
@@ -137,7 +137,7 @@ class NodeTest<T> {
     }
 
     public void setChildren(List<NodeTest<T>> children) {
-        this.parent = this;
+        //this.parent = this;
         this.children = children;
     }
 }
